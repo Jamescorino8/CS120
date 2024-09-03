@@ -5,7 +5,7 @@
  * @author JAMES
  * @version 14/9/21
  */
- class Main {
+ class lab2 {
   public static void main(String[] args) {
    /**  quadratic(); */
     /**part2();*/

@@ -5,7 +5,7 @@ import java.util.Scanner;
   * @version 9/22/21
   */
 
-class Main {
+class project1 {
   /**
    * This driver method calls shamrock() which will print
    * out the Shamrock poem. 
