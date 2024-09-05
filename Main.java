@@ -1,204 +1,313 @@
+import java.util.Scanner;
+
 /**
- * Lab 3, Part 3
+ * Lab 4, Part 2, Valid Dates
  * 
- * @author 
- * @version 
+ * @author  James Corino, Nicholas Gati
+ * @version 11/15/21
  */
 public class Main
 {
   /**
-   * The main method is provided as a means of testing the
-   * functions written in this class.  You may add
-   * additional test cases if desired.
+   * Use main to write code to test your functions.  An example
+   * is shown for testing the function getMonthName.
    */
-  public static void main(String args[]) {
-    System.out.println("--Testing maxOfTwo--");
-    System.out.println(maxOfTwo(5, 5));
-    System.out.println(maxOfTwo(5, 1));
-    System.out.println(maxOfTwo(1, 5));
+  public static void main(String[] args)
+  { 
+     System.out.println("Month 3 is " + getMonthName(3));
+     System.out.println("Month 99 is " + getMonthName(8));
+     System.out.println("is leap year " + isLeapYear(400));
+     System.out.println("Get Ordinal Mumber " + getOrdinalNum(21));
+     System.out.println("get European format " + getUSFormat(12, 3, 2014));
+     System.out.println("getOrdinalMonthDay  " + getOrdinalMonthDay(12, 3));
+     System.out.println(isValidDate("12/22/2021"));
 
-    System.out.println("--Testing isMultipleOfNine--");
-    System.out.println(isMultipleOfNine(8));
-    System.out.println(isMultipleOfNine(9));
-    System.out.println(isMultipleOfNine(27));
-    System.out.println(isMultipleOfNine(49));
-    System.out.println(isMultipleOfNine(81));
-    System.out.println(isMultipleOfNine(99));
-    System.out.println(isMultipleOfNine(351));
-    System.out.println(isMultipleOfNine(424));
-    System.out.println(isMultipleOfNine(801));
-    System.out.println(isMultipleOfNine(999));
-
-    System.out.println("--Testing calcGrossPay--");
-    System.out.println("Expecting $493.50");
-    System.out.printf("$%1.2f\n", calcGrossPay(47, 10.50, "Exempt"));
-
-    System.out.println("\nExpecting $530.25");
-    System.out.printf("$%1.2f\n", calcGrossPay(47, 10.50, "Hourly"));
-
-    System.out.println("\nExpecting $540.75");
-    System.out.printf("$%1.2f\n", calcGrossPay(47, 10.50, "Plus"));
-
-    System.out.println("\nExpecting $130.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(40, 3.25, "Exempt"));
-
-    System.out.println("\nExpecting $130.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(40, 3.25, "Hourly"));
-
-    System.out.println("\nExpecting $130.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(40, 3.25, "Plus"));
-
-    System.out.println("\nExpecting $210.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(35, 6.00, "Exempt"));
-
-    System.out.println("\nExpecting $210.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(35, 6.00, "Hourly"));
-
-    System.out.println("\nExpecting $210.00");
-    System.out.printf("$%1.2f\n", calcGrossPay(35, 6.00, "Plus"));
+     formatDate();
+     
   }
 
   /**
-   * This function returns the largest of two input
-   * integers.  If the input integers are the same value,
-   * this function returns -1;
+   * This function returns the name of the month corresponding
+   * to the number.  E.g., if the input is 3, this function
+   * returns "March". 
    * 
-   * You may NOT use Math.max in this function!
-   * 
-   * @param num1 The first input integer.
-   * @param num2 The second input integer.
-   * @return The largest of two input integers or -1 if their values are the same.
-  */
-  public static int maxOfTwo(int num1, int num2) 
-{
-  int results;
-  if (num1 < num2){
-    results = num2;
-  }
-  
-  else if (num1 > num2){
-    return num1;
-  }
-  
-  else {
-    return -1;
-   }
-
-  }
-
-
-
-}
-
-  /**
-   * This function calculates a worker's gross pay 
-   * according to their employee type.  "Exempt" employees
-   * are paid straight time for all hours worked no
-   * matter the number of hours.  "Hourly" employees are
-   * paid straight time for all hours worked up to and
-   * including 40 hours.  For hours worked over the first 
-   * 40 hours, hourly employees are paid time and a half.
-   * "Plus" employees are paid straight time for all hours
-   * worked up to and including 40 hours, time and a half
-   * for up to five hours worked over the first 40
-   * hours, and double time for hours worked over the first
-   * 45 hours.
-   * 
-   * E.g., 
-   * An Exempt employee works 47 hours at a rate 
-   * of $10.50 and is paid $493.50.
-   * An Hourly employee works 47 hours at a rate of $10.50
-   * and is paid: 
-   * (40*10.5) + (7*1.5*10.5) = $530.25.
-   * An Plus employee works 47 hours at a rate of $10.50 
-   * and is paid:
-   * (40*10.5) + (5*1.5*10.5) + (2*2*10.5) = $540.75.
+   * @param month  A valid month 
    *
-   * @param hoursWorked number of hours worked.
-   * @param rate hourly rate of pay
-   * @param empType employee's classification.  Valid types are Exempt, Hourly, and Plus.
-   * @return employee's gross pay.
+   * @return The name of the month
    */
-  public static double calcGrossPay(int hoursWorked, double rate, String empType)
+  
+  public static String getMonthName(int month)
   {
-    double results;
-    if (empType.equals("Exempt")){
-        results =  (hoursWorked * rate);
-    }
-    else if ((hoursWorked > 40) && (empType.equals("Hourly"))){
-         results = (((hoursWorked - 40)*1.5*rate) + (40 * rate)); 
+    String nameOfMonth = "" ;
+     if (month == 1) {
+        nameOfMonth = "January";
      }
-      else if (empType.equals("Hourly")){
-           results =(hoursWorked * rate);
-      }
-           else if ((hoursWorked <= 40) && (empType.equals("Plus"))){
-                  results = (hoursWorked * rate);
-              }
-                  else if(empType.equals("Plus")){
-                        results = (40*10.5) + ((hoursWorked -40 - (hoursWorked -40 - 5))*1.5*rate) + ((hoursWorked -40 - 5)*2*rate);
-                    }
-                       else{
-                        return 0;
-                       }
-                    
-                  
-    
-    
-    return results;
+     else if (month == 2) {
+        nameOfMonth = "February";
+     }
+     else if (month == 3) {
+        nameOfMonth = "March";
+     }  
+     else if (month == 4) {
+        nameOfMonth = "April";
+     }
+     else if (month == 5) {
+        nameOfMonth = "may";
+     }
+     else if (month == 6) {
+        nameOfMonth = "June";
+     }
+     else if (month == 7) {
+        nameOfMonth = "July";
+     }
+     else if (month == 8) {
+        nameOfMonth = "August";
+     }
+     else if (month == 9) {
+        nameOfMonth = "September";
+     }
+     else if (month == 10) {
+        nameOfMonth = "October";
+     }
+     else if (month == 11) {
+         nameOfMonth = "November";
+     }
+     else if (month == 12) {
+        nameOfMonth = "December";
+     }
+     else {
+        nameOfMonth = "the empty string.";
+     }
+    return nameOfMonth;
   }
-                        
-    
-                    
-    /**if ((hoursWorked == 35) && (rate == 6.00)){
-      return (hoursWorked * rate);
+
+//GetOrdinalNum function
+
+  public static String getOrdinalNum(int day)
+  {
+    if (day == 1 || day == 21 || day == 31) {
+      return day + "st";
     }
-    else{
-    
-     if ((hoursWorked == 40) && (rate == 3.25)){
-      return (hoursWorked * rate);
+    else if (day == 2 || day == 22) {
+      return day + "nd";
     }
+    else if (day == 3 || day == 23) {
+      return day + "rd";
+    }
+    else {
+      return day + "th";
     }
 
-     if((hoursWorked == 47) && (rate == 10.50)){
-      return (hoursWorked * rate);
+ }
+
+//isLeapYear function
+
+ public static boolean isLeapYear(int year)
+ {
+   if (year % 4 == 0) {
+     return true;
+   }
+   else if (year % 100 == 0) {
+     return false;
+   }
+   else if (year % 400 == 0) {
+     return true;
+   }
+   else {
+     return false;
+   }
+ }
+  /**
+   * This function prompts the user to enter a date as mm/dd/yyyy.
+   * If the date is valid, the user will be allowed to select a 
+   * formatting preference for the date (American, European, ISO,
+   * Ordinal).  Then, it will output the date in the 
+   * requested format.
+   */
+  public static void formatDate( )
+  { 
+    String answer = "";
+    int month;
+    int day;
+    int year;
+    
+   //  mm/dd/yyyy 
+
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Please enter the date you would like to format (mm/dd/yyyy):  ");
+    answer = sc.nextLine();
+    if (isValidDate(answer))
+    {     
+      month = Integer.parseInt(answer.substring(0, 2));
+      day= Integer.parseInt(answer.substring(3, 5));
+      year = Integer.parseInt(answer.substring(answer.length() -4));
+      System.out.println("\nEnter the number of the date format you would like.");
+      System.out.println("1. American");
+      System.out.println("2. European");
+      System.out.println("3. ISO");
+      System.out.println("4. Ordinal\n");
+      
+      int orChoice = sc.nextInt();
+      System.out.print("\n");
+      if (orChoice == 1) {
+        System.out.println(getUSFormat(month, day, year));
+      }
+      else if (orChoice == 2) {
+        System.out.println(getEuropeanFormat(month, day, year));
+      }
+      else if (orChoice == 3){
+        System.out.println(getISOFormat(month, day, year));
+      }
+      else if (orChoice == 4){
+        System.out.println(getOrdinalMonthDay(month, day));
+      }
+      else {
+        System.out.println(orChoice + " is not an option"); 
+      }
+    
     }
     else
-      return 0;
-    */
-  
-
-  /**
-   * It is well known that the digits of an integer
-   * that is a multiple of nine sum to nine.  For example,
-   * 
-   * 72 -> 7 + 2 = 9 -> 72 = 9 * 8
-   * 117 -> 1 + 1 + 7 = 9 -> 117 =  9 * 13
-   * 99 -> 9 + 9 = 18 --> 1 + 8 = 9 --> 9 * 11 (notice this requires two addition steps)
-   * 
-   * This function takes as input a single positive 
-   * integer in the range [1, 999].  It returns true 
-   * if the sum of the digits of the input
-   * integer is nine and false otherwise.
-   * 
-   * Notes to the programmer:  You may NOT check if the
-   * number is divisible by nine using any other method.
-   * You can assume the input value is in the
-   * correct range when the function is called.
-   * 
-   * @param num A positive integer in the range [1, 999].
-   * @return true if num is divisible by 9 and false otherwise.
-   */
-  public static boolean isMultipleOfNine(int num)
-  {
-    if (num % 9 <= 0){
-      return true;
+    {
+      System.out.println("Sorry, " + answer + " is not a valid date in the format mm/dd/yyyy.");
     }
-    else{
-      return false;
-    }
-
-
-    
+        
+    sc.close();
   }
 
-}
+  /**
+   * This function returns the date following United States format.
+   * 
+   * @param month  A valid month.
+   * @param day A valid day for the given month.
+   * @param year A valid year.
+   * 
+   * @return The date formatted as nameOfMonth day, year.  E.g., January 25, 2017
+   */
+  public static String getUSFormat(int month, int day, int year)
+  {
+    return getMonthName(month) + " " + day + " " + year;
+  }
+
+  /**
+   * This function returns the date following the most commonly 
+   * use European format.
+   * 
+   * @param month  A valid month.
+   * @param day A valid day for the given month.
+   * @param year A valid year.
+   * 
+   * @return The date formatted as day nameOfMonth year. E.g., 25 January 2017
+   */
+  public static String getEuropeanFormat(int month, int day, int year)
+  {
+    return day + " " + getMonthName(month) + " " + year;
+  }
+
+  /**
+   * This function returns the date in International Organization for
+   * Standardization (ISO) format.
+   * @param month  A valid month.
+   * @param day A valid day for the given month.
+   * @param year A valid year.
+   * 
+   * @return The date formatted as year nameOfMonth day. E.g., 2017 January 25
+   */
+  public static String getISOFormat(int month, int day, int year)
+  {
+    return year + " " + getMonthName(month) + " " + day;
+  }
+
+  /**
+   * This function returns the name of the month followed by the
+   * ordinal day.
+   * 
+   * @param month A valid month.
+   * @param day A valid day for the given month.
+   * 
+   * @return the nameOfMonth followed by the ordinal day.  E.g., January 25th
+   */
+  public static String getOrdinalMonthDay(int month, int day)
+  {
+    return getMonthName(month) + " " + getOrdinalNum(day);
+  }
+    
+  /**
+   * We will say a date is valid if the month is in [1, 12],
+   * the year is in [1, 2500], and the day is the correct number
+   * of days for the month, including consideration for leap year.
+   * Remember the mnemonic rhyme?
+   * 
+   * Thirty days has September, 
+   * April, June, and November.
+   * All the rest have 31, 
+   * Except for February alone,
+   * Which has but twenty-eight days clear,
+   * And twenty-nine in each leap year.
+   * (https://en.wikipedia.org/wiki/Thirty_days_hath_September)
+   * 
+   * For our purposes, you may assume the date is in the 
+   * format mm/dd/yyyy.
+   * 
+   * @param date A possible date.
+   * @return true If this is a valid date and false otherwise.
+   */
+  public static boolean isValidDate(String date)
+  {
+    int month;
+    int day;
+    int year;
+    boolean isValid = true;
+        
+    if (date.length() == 10)
+    {
+      try
+      {
+        month = Integer.parseInt(date.substring(0, 2));
+        day = Integer.parseInt(date.substring(3, 5));
+        year = Integer.parseInt(date.substring(date.length() -4)); 
+        
+        if (month <= 12 && day <= 31) {
+          if (isLeapYear(year) == false) {
+            if (month == 9 || month == 4 || month == 6 || month == 11 || month == 2) 
+            {
+              if (day <= 30) 
+              {
+                return isValid;
+              }
+              else if (month == 2 && day <= 28) 
+              {
+                return isValid;
+              }
+              else {
+                isValid = false;
+              }     
+                return isValid;     
+            }
+          
+          }
+          else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 || month == 2) {
+            if (month == 2 && day <= 29) {
+              return isValid;
+            }
+            else {
+            isValid = false;
+          }
+            return isValid;
+      } }
+        else {
+          isValid = false;
+        }
+      return isValid; 
+      }
+      catch(NumberFormatException nfe)  
+      {
+        isValid = false;
+      }
+    }
+    else {
+      isValid = false;   
+    }
+      return isValid;
+  }     
+  
+  }
