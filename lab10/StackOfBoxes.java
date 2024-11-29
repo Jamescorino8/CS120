@@ -1,3 +1,4 @@
+package lab10;
 /**
  * This class represents a stack of boxes that
  * has a number of rows (the height) and a

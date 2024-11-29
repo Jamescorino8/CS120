@@ -1,3 +1,4 @@
+package lab10;
 /**
  * This class represents a box that can hold a certain
  * number of bottles. The bottles can have different
