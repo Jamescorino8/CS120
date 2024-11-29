@@ -1,3 +1,5 @@
+import lab7.Main;
+
 public class TestBlink {
 
     static public void testGetCardName() {

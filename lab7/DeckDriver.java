@@ -1,3 +1,4 @@
+package lab7;
 
 /**
  * This class may be used to test the Card and Deck classes.
