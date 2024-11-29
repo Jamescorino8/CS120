@@ -5,4 +5,6 @@ CS120.iml
 /out
 /.class
 /.nix
-.replit
+/.replit
+/.breakpoints
+replit.nix
